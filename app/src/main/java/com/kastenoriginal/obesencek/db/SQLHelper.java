@@ -14,6 +14,7 @@ public class SQLHelper extends SQLiteOpenHelper{
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_WORD = "";
 
+
     private static final String DATABASE_CREATE = "create table "
             + TABLE_WORDS + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_WORD
