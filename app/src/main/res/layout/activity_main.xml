@@ -13,12 +13,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50">
+        android:layout_weight="50"
+        android:orientation="vertical">
 
-        <Button
+        <EditText
+            android:id="@+id/editTextNewWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/skuska" />
+            android:gravity="center"
+            android:text="@string/newWord" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonInsert"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@string/insertWord" />
+
+            <Button
+                android:id="@+id/buttonShowAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@string/allWords"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -28,10 +54,10 @@
         android:layout_weight="50">
 
         <TextView
+            android:id="@+id/textViewShowWords"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/textview"
-            android:gravity="center_horizontal"/>
+            android:text="@string/textView" />
 
     </LinearLayout>
 

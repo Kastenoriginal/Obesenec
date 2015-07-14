@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Obesencek</string>
-    <string name="nastavenia">Nastavenia</string>
-    <string name="skuska">Skúška</string>
-    <string name="textview">Text</string>
+    <string name="settings">Settings</string>
+    <string name="insertWord">Insert word</string>
+    <string name="textView">Text will be here:</string>
+    <string name="newWord">Type new word here</string>
+    <string name="allWords">Show all words</string>
 </resources>
