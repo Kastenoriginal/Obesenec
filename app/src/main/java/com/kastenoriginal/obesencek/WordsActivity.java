@@ -2,9 +2,7 @@ package com.kastenoriginal.obesencek;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +15,7 @@ import android.widget.Toast;
 
 import com.kastenoriginal.obesencek.db.Db;
 
-public class MainActivity extends Activity {
+public class WordsActivity extends Activity implements View.OnClickListener{
 
     public static final String TEXTVIEW_KEY = "TEXTVIEW_KEY";
 
@@ -26,7 +24,6 @@ public class MainActivity extends Activity {
     TextView textView;
     EditText newWord;
     Db db;
-    String editWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,34 +39,13 @@ public class MainActivity extends Activity {
         db = new Db(this);
 
         buttonInsert = (Button) findViewById(R.id.buttonInsert);
+        buttonInsert.setOnClickListener(this);
         buttonShowAll = (Button) findViewById(R.id.buttonShowAll);
+        buttonShowAll.setOnClickListener(this);
 
         textView = (TextView) findViewById(R.id.textViewShowWords);
 
         newWord = (EditText) findViewById(R.id.editTextNewWord);
-
-        buttonInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (newWord.getText().toString().length() < 5) {
-                    Toast.makeText(getApplicationContext(), "Word is too short", Toast.LENGTH_SHORT).show();
-                } else {
-                    Word word = new Word(newWord.getText().toString(), String.valueOf(newWord.getText().toString().length()));
-                    db.insertWord(word);
-                    textView.setText("\nWord " + word.getWordTitle() + " added succesfully and its length is " + newWord.getText().toString().length());
-                }
-            }
-        });
-
-        buttonShowAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (Word w : db.getWords()){
-                    textView.setText(textView.getText() + "\n" + w.getWordTitle());
-                }
-//                textView.setText(textView.getText() + "\n" + db.getWords());
-            }
-        });
 
         if (savedInstanceState != null) {
             textView.setText(savedInstanceState.getString(TEXTVIEW_KEY));
@@ -85,18 +61,33 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(TEXTVIEW_KEY, (String) textView.getText());
-//        outState.putString();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonInsert:
+                if (newWord.getText().toString().length() < 5) {
+                    Toast.makeText(getApplicationContext(), "Word is too short", Toast.LENGTH_SHORT).show();
+                } else {
+                    Word word = new Word(newWord.getText().toString(), String.valueOf(newWord.getText().toString().length()));
+                    db.insertWord(word);
+                    textView.setText("\nWord " + word.getWordTitle() + " added succesfully and its length is " + newWord.getText().toString().length());
+                    newWord.setText(null);
+                }
+                break;
+            case  R.id.buttonShowAll:
+                for (Word w : db.getWords()){
+                    textView.setText(textView.getText() + "\n" + w.getWordTitle());
+                }
+                break;
+        }
     }
 }
