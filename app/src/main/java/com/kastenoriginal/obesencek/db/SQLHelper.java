@@ -17,10 +17,10 @@ public class SQLHelper extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_WORDS =
-            "CREATE TABLE IF NOT EXISTS" + TABLE_WORDS + " ("
+            "create table IF NOT EXISTS " + TABLE_WORDS + " ("
             + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_WORD_TITLE + " text not null);"
-            + COLUMN_WORD_LENGTH + "text not null";
+            + COLUMN_WORD_TITLE + " text not null, "
+            + COLUMN_WORD_LENGTH + " text not null);";
 
     public SQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

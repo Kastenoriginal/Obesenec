@@ -19,14 +19,14 @@ import com.kastenoriginal.obesencek.db.Db;
 
 public class MainActivity extends Activity {
 
-    public static final String TEXT_KEY = "TEXT_KEY";
-    public static final String EDIT_TEXT_KEY = "EDIT_TEXT_KEY";
+    public static final String TEXTVIEW_KEY = "TEXTVIEW_KEY";
 
     Button buttonInsert;
     Button buttonShowAll;
     TextView textView;
     EditText newWord;
     Db db;
+    String editWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +51,12 @@ public class MainActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (newWord.getText() == null) {
-                    Toast.makeText(buttonInsert.getContext(), "No Words found", Toast.LENGTH_SHORT);
+                if (newWord.getText().toString().length() < 5) {
+                    Toast.makeText(getApplicationContext(), "Word is too short", Toast.LENGTH_SHORT).show();
                 } else {
-                    textView.setText(newWord.getText().toString());
-//                    Word word = new Word(newWord.getText().toString(), String.valueOf(newWord.getText().length()));
-//                    db.insertWord(word);
-//                    textView.setText(textView.getText() + "\nWord" + newWord.getText() + "added succesfully");
+                    Word word = new Word(newWord.getText().toString(), String.valueOf(newWord.getText().toString().length()));
+                    db.insertWord(word);
+                    textView.setText("\nWord " + word.getWordTitle() + " added succesfully and its length is " + newWord.getText().toString().length());
                 }
             }
         });
@@ -65,12 +64,15 @@ public class MainActivity extends Activity {
         buttonShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "\n" + db.getWords());
+                for (Word w : db.getWords()){
+                    textView.setText(textView.getText() + "\n" + w.getWordTitle());
+                }
+//                textView.setText(textView.getText() + "\n" + db.getWords());
             }
         });
 
         if (savedInstanceState != null) {
-            textView.setText(savedInstanceState.getString(TEXT_KEY));
+            textView.setText(savedInstanceState.getString(TEXTVIEW_KEY));
         }
     }
 
@@ -94,7 +96,7 @@ public class MainActivity extends Activity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(TEXT_KEY, (String) textView.getText());
+        outState.putString(TEXTVIEW_KEY, (String) textView.getText());
 //        outState.putString();
     }
 }
