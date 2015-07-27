@@ -30,6 +30,8 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         buttonNewGame = (Button) findViewById(R.id.buttonNewGame);
         buttonContinue = (Button) findViewById(R.id.buttonContinue);
         buttonWords = (Button) findViewById(R.id.buttonWords);
+        buttonNewGame.setOnClickListener(this);
+        buttonContinue.setOnClickListener(this);
         buttonWords.setOnClickListener(this);
     }
 
@@ -49,12 +51,14 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonNewGame:
+                Intent intentNewGame = new Intent(this, GameActivity.class);
+                startActivity(intentNewGame);
                 break;
             case R.id.buttonContinue:
                 break;
             case R.id.buttonWords:
-                Intent intent = new Intent(this, WordsActivity.class);
-                startActivity(intent);
+                Intent intentWords = new Intent(this, WordsActivity.class);
+                startActivity(intentWords);
                 break;
         }
     }

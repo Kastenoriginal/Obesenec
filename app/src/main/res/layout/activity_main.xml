@@ -7,13 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="100"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="50"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <EditText
@@ -29,8 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="25"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
@@ -49,21 +46,25 @@
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="50">
-
         <TextView
-            android:id="@+id/textViewShowWords"
+            android:id="@+id/textViewYourWords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewRecentWords"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/textView" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewShowWords"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ScrollView>
 
     </LinearLayout>
-
 
 </LinearLayout>

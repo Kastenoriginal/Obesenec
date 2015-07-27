@@ -1,5 +1,6 @@
 package com.kastenoriginal.obesencek.db;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,12 +11,12 @@ import com.kastenoriginal.obesencek.Word;
 
 import java.util.ArrayList;
 
-public class Db {
+public class DatabaseDataProvider {
 
     private SQLHelper sqlHelper;
     private SQLiteDatabase db;
 
-    public Db(Context context) {
+    public DatabaseDataProvider(Context context) {
         sqlHelper = new SQLHelper(context);
     }
 
@@ -51,7 +52,7 @@ public class Db {
 
     public ArrayList<Word> getWords() {
         open();
-        Cursor c = db.query(SQLHelper.TABLE_WORDS, null, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor c = db.query(SQLHelper.TABLE_WORDS, null, null, null, null, null, null);
         ArrayList<Word> words = new ArrayList<>();
         if (c != null && c.moveToFirst()) {
             do {
@@ -65,12 +66,4 @@ public class Db {
         close();
         return words;
     }
-
-//    public Word getRandomWord() {
-//        open();
-//        ArrayList<Word> words = getWords();
-//
-//        close();
-//        return word;
-//    }
 }
